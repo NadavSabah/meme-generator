@@ -23,14 +23,14 @@
       <input id="myInput" name="img" id="imgData" type="hidden"/>
       <br>
       <button type="submit">Publish</button><br>
-      Write your text here: <input  onkeyup="drawText(this,event)" type="text" name="fname" >
+      Write your text here(Top line): <input  class="top" onkeyup="drawText()" type="text" name="fname" >
+      Write your text here(Bottom line): <input class="bottom" onkeyup="drawText()" type="text" name="fname" ><br>
+      <input  onchange="drawText() "type="color" value="#ffffff" class="color" name="color" form="frmRegister" /><br>
       <button onclick=" Clear_text()">Clear Text</button>
+      <!-- <select onchange="onSetLang(this.value)"> -->
+    </select>
     </form>
     <img class="img" src="img/1.jpg" alt="">
-   
-       
-    
-      
 
 </div>
 

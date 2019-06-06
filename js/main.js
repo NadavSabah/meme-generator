@@ -1,5 +1,15 @@
 'use strict'
+function init() {
+    console.log('init')
+    canvas = document.getElementById('myCanvas');
+    ctx = canvas.getContext('2d');
+    renderCanvas()
 
+    var gImgs = [{ id: 1, url: '../img/1.jpg', keywords: ['happy'] }];
+    var gMeme = { selectedImgId: 5, txts: [{ line: 'I never eat Falafel', size: 20, align: 'left', color: 'red' }] }
+    var gKeywords = { 'happy': 12, 'funny puk': 1 }
+
+}
 
 function onFileInputChange(ev) {
     console.log(ev)
@@ -21,6 +31,41 @@ ctx.drawImage(img, 0, 0,);
     
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // function resizeCanvas() {
 //     var elContainer = document.querySelector('.share-container');
 //     // var elContainer = document.querySelector('body');
@@ -30,19 +75,19 @@ ctx.drawImage(img, 0, 0,);
 
     
    
-    function KeyCheck(event)
-    {
+    // function KeyCheck(event)
+    // {
         
-       var KeyID = event.keyCode;
-       switch(KeyID)
-       {
-          case 8:
-          drawText()
-          break; 
-          case 46:
-          alert("delete");
-          break;
-          default:
-          break;
-       }
-    }
+    //    var KeyID = event.keyCode;
+    //    switch(KeyID)
+    //    {
+    //       case 8:
+    //       drawText()
+    //       break; 
+    //       case 46:
+    //       alert("delete");
+    //       break;
+    //       default:
+    //       break;
+    //    }
+    // }
