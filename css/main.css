@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+
+}
+h1{text-align: center;
+}
+#myCanvas{
+    background-size: cover;
+}
+.share-container{
+    background-size: cover;
+    background-color: red;
+}
+.img{
+    display: none;
+}
