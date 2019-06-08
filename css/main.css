@@ -1,8 +1,15 @@
 .container{
     display: flex;
-    width: 100%;
-    height: auto;
+    max-width: 1100px;;
+    
+    /* height: auto; */
 
+}
+.flex{
+    display:flex;
+}
+.justify-content{
+    justify-content: center;
 }
 h1{text-align: center;
 }
@@ -11,8 +18,27 @@ h1{text-align: center;
 }
 .share-container{
     background-size: cover;
-    background-color: red;
+    
 }
 .img{
     display: none;
 }
+button {
+    border-radius: 7px;
+    
+}
+
+.social-share-btn {
+    background: #4267b2;
+    border: 1px solid #4267b2;
+    color: #fff;
+    cursor: pointer;
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    user-select: none;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+  }

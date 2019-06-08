@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,47 +8,64 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Meme Generator</title>
 </head>
+
 <body onload="init()">
-        <h1>Meme generator</h1>
-    <div class = "container">
+    <h1>Meme Generator</h1>
+    <div class="container">
 
         <div>
-            
-           <canvas id="myCanvas" width="500" height="500" style="outline:1px solid black">  
-             <img class='img' src="img/1.jpg" alt="">
-            </div>  
-    
-    <input type="file" name="image" onchange="onFileInputChange(event)"/>
-<div>
-    <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-      <input id="myInput" name="img" id="imgData" type="hidden"/>
-      <br>
-      <button type="submit">Publish</button><br>
-      Write your text here(Top line): <input  class="top" onkeyup="drawText()" type="text" name="fname" >
-      Write your text here(Bottom line): <input class="bottom" onkeyup="drawText()" type="text" name="fname" ><br>
-      <input  onchange="drawText() "type="color" value="#ffffff" class="color" name="color" form="frmRegister" /><br>
-      <button onclick=" Clear_text()">Clear Text</button>
-      <!-- <select onchange="onSetLang(this.value)"> -->
-    </select>
-    </form>
-    <img class="img" src="img/1.jpg" alt="">
-
-</div>
-
-   </canvas>
-  
+            <!-- Canvas -->
+            <canvas  id="myCanvas" width="500" height="500" style="outline:1px solid black">
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+            <input name="img" id="imgData" type="hidden"/>
+            <button type="submit">Publish</button>
+          </form>
         
-      
-</div>
-<div class="share-container"></div>
-    <div> 
-        <button>Download</button>
+        <input type="file" name="image" onchange="onFileInputChange(event)" />
+        <div>
+           
 
-    
+                <!-- Write txt -->
+                Top line:<br><input class="top" onkeyup="onDrawText()" type="text" name="fname"><br>
+                Bottom line:<br> <input class="bottom" onkeyup="onDrawText()" type="text" name="fname"><br>
+
+                <!-- Color -->
+                Color:<input onchange="onDrawText() " type="color" value="#ffffff" class="color" name="color"
+                    form="frmRegister" /><br><br>
+
+                <!-- txt font -->
+                <select onchange="onSetFont(this.value)">
+                    <option>Choose font</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
+                    <option value="Impact">Impact</option>
+                </select><br><br>
+                <!-- font size -->
+                <button onclick="onDecreaseFontSize()">-</button><button onclick="onIncreaseFontSize()">+</button>
+                <br><br>
+                <button onclick="onClearText()">Clear Canvas</button>
+                <!-- <select onchange="onSetLang(this.value)"> -->
+                
+            </form>
+            <img class="img" src="img/1.jpg" alt="">
+
+        </div>
+        </canvas>
+
     </div>
-    
+    <div class="share-container"></div>
+    <div>
+        <a href="#" onclick="onDownloadImg(this)" download="my-img.jpg" >
+        Download
+        </a>
+
+    </div>
+
 </body>
 <script src="js/util.js"></script>
 <script src="js/service.js"></script>
 <script src="js/main.js"></script>
+
 </html>

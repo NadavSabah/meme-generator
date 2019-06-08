@@ -2,8 +2,9 @@
 
 var canvas;
 var ctx;
-
-
+var gCurrFont = 'Arial'
+var gFontSize = 40
+var gImg;
 
 
 function handleImageFromInput(ev, onImageReady) {
@@ -12,6 +13,7 @@ function handleImageFromInput(ev, onImageReady) {
 
     reader.onload = function (event) {
         var img = new Image();
+        gImg = img
         img.onload = onImageReady.bind(null, img)
         img.src = event.target.result;
     }
@@ -19,34 +21,32 @@ function handleImageFromInput(ev, onImageReady) {
 
 }
 
+// function doUploadImg(elForm, onSuccess) {
+//     var formData = new FormData(elForm);
 
+//     fetch('http://ca-upload.com/here/upload.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(function (response) {
+//         return response.text()
+//     })
+//     .then(onSuccess)
+//     .catch(function (error) {
+//         console.error(error)
+//     })
+// }
 
-function drawText() {
-    var elColor = document.querySelector('.color').value
-    renderCanvas()
-
-    if (document.querySelector('.top').value !== '') {
-        writeOnCanvas(0.1, elColor, 'top')
-    }
-    if (document.querySelector('.bottom').value !== '') {
-        writeOnCanvas(0.9, elColor, 'bottom')
-    }
-
-    ctx.restore();
+function setFont(font){
+    gCurrFont = font
+    console.log('font',gCurrFont)
 }
-function Clear_text() {
-    myCanvas_context.clearRect(x, y, 600, 300);
+
+function increaseFont(){
+    ++gFontSize
 }
 
-
-function writeOnCanvas(location, color, line) {
-    var txt = document.querySelector('.' + line).value
-    var y = canvas.height * location
-    var x = canvas.width * 0.1
-
-    ctx.fillStyle = color
-    ctx.strokeStyle = color
-    ctx.font = "40px Arial";
-    ctx.fillText(txt, x, y);
-    ctx.strokeText(txt, x, y);
+function decreaseFont(){
+    --gFontSize
 }
+
