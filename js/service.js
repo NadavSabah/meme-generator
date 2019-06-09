@@ -3,8 +3,9 @@
 var canvas;
 var ctx;
 var gCurrFont = 'Arial'
-var gFontSize = 40
+var gFontSize = 40;
 var gImg;
+var gLoctaionX = 0.1;
 
 
 function handleImageFromInput(ev, onImageReady) {

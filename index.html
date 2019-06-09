@@ -10,32 +10,37 @@
 </head>
 
 <body onload="init()">
-    <h1>Meme Generator</h1>
-    <div class="container">
+        <h1>Meme Generator</h1>
+        <div class="container flex justify-center align-center wrap">
 
         <div>
             <!-- Canvas -->
-            <canvas  id="myCanvas" width="500" height="500" style="outline:1px solid black">
+            <input class="flex justify-center" type="file" name="image" onchange="onFileInputChange(event)" />
+            <canvas id="myCanvas" width="500" height="500" style="outline:1px solid black">
+                </div>
+                
+                <div class="editor ">
+                    
+                        <label><input onclick="onToggleLine(this)" type="checkbox" name="checkbox" value="top-line"><b>Top line</b></label>     
+                        <label><input onclick="onToggleLine(this)" type="checkbox" name="checkbox" value="bottom-line"><b>Bottom line</b></label>     
+                        <!-- <label><input type="checkbox" name="checkbox" value="bottom">Bottom line</label>     -->
+                        <br><br>
+            <!-- Write txt -->
+        <div class="top-line"><b>Top line:</b><br><input class="top" onkeyup="onDrawText()" type="text" name="fname">
+            <button class="top" onclick="onMoveTxtLeft(this)"><--</button><button class="top" onclick="onMoveTxtRight(this)">--></button>
         </div>
-        <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-            <input name="img" id="imgData" type="hidden"/>
-            <button type="submit">Publish</button>
-          </form>
-        
-        <input type="file" name="image" onchange="onFileInputChange(event)" />
-        <div>
-           
-
-                <!-- Write txt -->
-                Top line:<br><input class="top" onkeyup="onDrawText()" type="text" name="fname"><br>
-                Bottom line:<br> <input class="bottom" onkeyup="onDrawText()" type="text" name="fname"><br>
-
-                <!-- Color -->
-                Color:<input onchange="onDrawText() " type="color" value="#ffffff" class="color" name="color"
-                    form="frmRegister" /><br><br>
-
-                <!-- txt font -->
-                <select onchange="onSetFont(this.value)">
+            <br>
+           <div class="bottom-line"> <b>Bottom line:</b><br> <input class="bottom" onkeyup="onDrawText()" type="text" name="fname">
+            <button class="bottom" onclick="onMoveTxtLeft(this)"><--</button><button class="bottom" onclick="onMoveTxtRight(this)">--></button>
+        </div>
+            <br>
+            
+            <!-- Color -->
+            <b>Color:</b><input onchange="onDrawText() " type="color" value="#ffffff" class="color" name="color"
+            form="frmRegister" /><br><br>
+            
+            <!-- txt font -->
+            <select onchange="onSetFont(this.value)">
                     <option>Choose font</option>
                     <option value="Arial">Arial</option>
                     <option value="Georgia">Georgia</option>
@@ -43,26 +48,31 @@
                     <option value="Impact">Impact</option>
                 </select><br><br>
                 <!-- font size -->
-                <button onclick="onDecreaseFontSize()">-</button><button onclick="onIncreaseFontSize()">+</button>
+                <button onclick="onDecreaseFontSize()"><b>-</b></button><button onclick="onIncreaseFontSize()"><b>+</b></button>
                 <br><br>
-                <button onclick="onClearText()">Clear Canvas</button>
+                <button onclick="onClearText()"><b>Clear Canvas</b></button><br><br><br>
                 <!-- <select onchange="onSetLang(this.value)"> -->
+                    
+                    
+                    <img class="img" src="img/1.jpg" alt="">
+                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                        <input name="img" id="imgData" type="hidden"/>
+                        <button class="btn-fb"  type="submit"><b>Share via FaceBook</b></button>
+                    </form>
+                    <a class="btn-download" href="#" onclick="onDownloadImg(this)" download="my-img.jpg" >
+                        <b>Download</b>
+                    </a>
                 
-            </form>
-            <img class="img" src="img/1.jpg" alt="">
-
-        </div>
+            </div>
         </canvas>
-
+        
     </div>
+    
     <div class="share-container"></div>
-    <div>
-        <a href="#" onclick="onDownloadImg(this)" download="my-img.jpg" >
-        Download
-        </a>
-
-    </div>
-
+    
+    
+    
+    
 </body>
 <script src="js/util.js"></script>
 <script src="js/service.js"></script>
