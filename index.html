@@ -13,85 +13,97 @@
 <body onload="init()">
     <h1>Meme Generator</h1>
 
-    
+
     <div class="container flex justify-center align-center wrap">
 
         <div>
-            
+
             <!-- Canvas -->
-            
-            <!-- <input class="flex justify-center" type="file" name="image" onchange="onFileInputChange(event)" /> -->
-           
             <canvas id="myCanvas" width="400" height="400" style="outline:1px solid black">
             </canvas>
         </div>
 
         <div class="editor ">
-                <div class="upload-btn-wrapper">
-                        <button class="btn">Upload a file</button>
-                        <input type="file" name="myfile" onchange="onFileInputChange(event)" />
-                      </div><br>
-
-            <label><input onclick="onToggleLine(this)" type="checkbox" name="checkbox" value="top-line"><b>Top
-                    line</b></label>
-            <label><input onclick="onToggleLine(this)" type="checkbox" name="checkbox" value="bottom-line"><b>Bottom
-                    line</b></label>
-            <!-- <label><input type="checkbox" name="checkbox" value="bottom">Bottom line</label>     -->
-            <br><br>
             <!-- Write txt -->
-
-            <div class="top-line"><b>Top line:</b><br><input class="top" onkeyup="onDrawText()" type="text"
-                    name="fname">
-                <button class="top" onclick="onMoveTxtLeft(this)">
-                    <--</button> <button class="top" onclick="onMoveTxtRight(this)">-->
-                </button>
-                <button class="top" onclick="onMoveTxtUp(this)">up</button>
-                <button class="top" onclick="onMoveTxtDown(this)">down</button>
+            <div class="top-line">
+                <div><b>Top line:</b><br><input class="top" onkeyup="onDrawText()" type="text" name="fname">
+                </div>
+                <div class="arrows">
+                    <!-- moving txt top line -->
+                    <button class="top" onclick="onMoveTxtLeft(this)">
+                        <i class="fas fa-long-arrow-alt-left"></i></button> <button class="top"
+                        onclick="onMoveTxtRight(this)">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                    </button>
+                    <button class="top" onclick="onMoveTxtUp(this)"><i class="fas fa-long-arrow-alt-up"></i></button>
+                    <button class="top" onclick="onMoveTxtDown(this)"><i
+                            class="fas fa-long-arrow-alt-down"></i></button>
+                </div>
             </div>
             <br>
-            <div class="bottom-line"> <b>Bottom line:</b><br> <input class="bottom" onkeyup="onDrawText()" type="text"
-                    name="fname">
-                <button class="bottom" onclick="onMoveTxtLeft(this)">
-                    <--</button> <button class="bottom" onclick="onMoveTxtRight(this)">-->
-                </button>
-                <button class="bottom" onclick="onMoveTxtUp(this)">up</button>
-                <button class="bottom" onclick="onMoveTxtDown(this)">down</button>
+            <div class="bottom-line">
+                <div> <b>Bottom line:</b><br> <input class="bottom" onkeyup="onDrawText()" type="text" name="fname">
+                </div>
+                <!-- moving txt bottom line -->
+                <div class="arrows">
+                    <button class="bottom" onclick="onMoveTxtLeft(this)">
+                        <i class="fas fa-long-arrow-alt-left"></i></button> <button class="bottom"
+                        onclick="onMoveTxtRight(this)">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                    </button>
+                    <button class="bottom" onclick="onMoveTxtUp(this)"><i class="fas fa-long-arrow-alt-up"></i></button>
+                    <button class="bottom" onclick="onMoveTxtDown(this)"><i
+                            class="fas fa-long-arrow-alt-down"></i></button>
+                </div>
             </div>
-            
+
 
             <br>
 
             <!-- Color -->
-            <div class="total-set">
-                <div class="prt-1">
-                    <b>Color:</b><input onchange="onDrawText() " type="color" value="#ffffff" class="color" name="color"
-                        form="frmRegister" /><br><br>
+            <div class="total-set flex flex-column space-between">
+                <div class="prt-1 flex  space-between">
+                    <div class="height flex flex-column space-evenly">
+                        <div> <b>Color:</b><input onchange="onDrawText() " type="color" value="#ffffff" class="color"
+                                name="color" form="frmRegister" /></div>
+                        <!-- txt font -->
+                        <select onchange="onSetFont(this.value)">
+                            <option>Choose font</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
+                            <option value="Impact">Impact</option>
+                        </select>
+                    </div>
 
-                    <!-- txt font -->
-                    <select onchange="onSetFont(this.value)">
-                        <option>Choose font</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Comic Sans MS">Comic Sans MS</option>
-                        <option value="Impact">Impact</option>
-                    </select><br><br>
-                    <!-- font size -->
-                    <button class="btn-minus" onclick="onDecreaseFontSize()"><b>-</b></button><button class="btn-plus"
-                        onclick="onIncreaseFontSize()"><b>+</b></button>
-                    <br><br>
+                    <div class="plus-minus height flex  space-evenly">
+                        <!-- font size -->
+                        <button onclick="onDecreaseFontSize()"><b>-</b></button><button
+                            onclick="onIncreaseFontSize()"><b>+</b></button>
+                    </div>
+
                 </div>
-                <div class="prt-2">
-                    <button class="btn-clear" onclick="onClearText()"><b>Clear Canvas</b></button><br><br>
-                
-                    <img class="img" src="img/1.jpg" alt="">
-                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-                        <input name="img" id="imgData" type="hidden" />
-                        <button class="btn-fb" type="submit"><b>Share via FaceBook</b></button>
-                    </form>
-                    <a class="btn-download" href="#" onclick="onDownloadImg(this)" download="my-img.jpg">
-                        <b>Download</b>
-                    </a>
-                   
+                <div class="prt-2 flex  space-between">
+                    <div class=" flex flex-column space-evenly height">
+                        <!-- clear canvas btn -->
+                        <button class="btn-clear" onclick="onClearText()"><b>Clear Canvas</b></button>
+                        <div class="upload-btn-wrapper">
+                            <!-- upload file btn -->
+                            <button class="btn">Upload a file</button>
+                            <input type="file" name="myfile" onchange="onFileInputChange(event)" />
+                        </div>
+                    </div>
+                    <div class="height flex flex-column space-evenly">
+                        <img class="img" src="img/1.jpg" alt="">
+                        <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                            <input name="img" id="imgData" type="hidden" />
+                            <button class="btn-fb" type="submit"><b>Share via FaceBook</b></button>
+                        </form>
+                        <!-- download img -->
+                        <a class="btn-download" href="#" onclick="onDownloadImg(this)" download="my-img.jpg">
+                            <b>Download</b>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -106,6 +118,7 @@
 
 
 </body>
+<script src="https://kit.fontawesome.com/a1a41b86b1.js"></script>
 <script src="js/util.js"></script>
 <script src="js/service.js"></script>
 <script src="js/main.js"></script>
