@@ -2,35 +2,36 @@
 
 function init() {
     console.log('init')
-    canvas = document.getElementById('myCanvas');
-    ctx = canvas.getContext('2d');
+    gCanvas = document.getElementById('myCanvas');
+    gCtx = gCanvas.getContext('2d');
 
     renderCanvas()
+
 
     // var gImgs = [{ id: 1, url: '../img/1.jpg', keywords: ['happy'] }];
     // var gMeme = { selectedImgId: 5, txts: [{ line: 'I never eat Falafel', size: 20, align: 'left', color: 'red' }] }
     // var gKeywords = { 'happy': 12, 'funny puk': 1 }
 
+
+    // console.log('window.innerWidth', window.innerWidth)
+    // console.log(' gCanvas.width', gCtx.width)}
+    // gCanvas.width = window.innerWidth;
+    // gCanvas.height = window.innerHeight;
 }
 
 function uploadImg(elForm, ev) {
-    console.log('elForm', elForm)
-    console.log('ev', ev)
     ev.preventDefault();
 
     console.log(' document.getElementById(imgData)', document.getElementById('imgData'))
-    console.log('canvas.toDataURL("img/jpeg");', canvas.toDataURL("img/jpeg"))
-    document.getElementById('imgData').value = canvas.toDataURL("img/jpeg");
+    console.log('canvas.toDataURL("img/jpeg");', gCanvas.toDataURL("img/jpeg"))
+    document.getElementById('imgData').value = gCanvas.toDataURL("img/jpeg");
 
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         console.log('uploadedImgUrl', uploadedImgUrl);
 
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        document.querySelector('.share-container').innerHTML = `
-        <a class="w-inline-block social-share-btn fb" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-           Share   
-        </a>`
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`);
     } doUploadImg
 
         (elForm, onSuccess);
@@ -52,69 +53,85 @@ function doUploadImg(elForm, onSuccess) {
 }
 
 function onFileInputChange(ev) {
-    console.log('ev', ev)
+    console.log('ev',ev)
     handleImageFromInput(ev, renderCanvas)
 }
-// img=document.querySelector('.img')
+
 function renderCanvas(img = document.querySelector('.img')) {
-    canvas.width = img.width;
-    canvas.height = img.height;
-    ctx.drawImage(img, 0, 0);
+
+    gCanvas.width = img.width;
+    // img.width = gCanvas.width;
+    // img.height = gCanvas.height;
+    gCanvas.height = img.height;
+    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+    resizeCanvas()
+
+
+
 }
+
 
 function onDrawText() {
     var elColor = document.querySelector('.color').value
-    renderCanvas(gImg)
+    gMeme.txts[0].color = elColor
+    var fontType = gMeme.txts[0].fontType
+    var fontSize = gMeme.txts[0].fontSize
+
+
+    renderCanvas()
 
     if (document.querySelector('.top').value !== '') {
         var locationX = gLoctaion[0].top.locationX
         var locationY = gLoctaion[0].top.locationY
-        writeOnCanvas(locationY, locationX, elColor, 'top', gCurrFont, gFontSize)
+        writeOnCanvas(locationY, locationX, elColor, 'top', fontType, fontSize)
     }
     if (document.querySelector('.bottom').value !== '') {
         var locationX = gLoctaion[0].bottom.locationX
         var locationY = gLoctaion[0].bottom.locationY
-        writeOnCanvas(locationY, locationX, elColor, 'bottom', gCurrFont, gFontSize)
+        writeOnCanvas(locationY, locationX, elColor, 'bottom', fontType, fontSize)
     }
 
-    ctx.restore();
+    gCtx.restore();
+
 }
 
 
 function writeOnCanvas(locationY, gLocationX, color, line, gCurrFont, gFontSize) {
     var txt = document.querySelector('.' + line).value
-    var y = canvas.height * locationY
-    var x = canvas.width * gLocationX
+    if (line === 'top') gMeme.txts[0].top = txt
+    else gMeme.txts[0].bottom = txt
 
-    ctx.fillStyle = color
-    ctx.strokeStyle = color
-    ctx.font = gFontSize + 'px ' + gCurrFont
+    var y = gCanvas.height * locationY
+    var x = gCanvas.width * gLocationX
 
-    ctx.fillText(txt, x, y);
-    ctx.strokeText(txt, x, y);
+    gCtx.fillStyle = color
+    gCtx.strokeStyle = color
+    gCtx.font = gFontSize + 'px ' + gCurrFont
+
+    gCtx.fillText(txt, x, y);
+    gCtx.strokeText(txt, x, y);
 }
 
-// i need to know top or bottom
-// locatuin x and y
-var gMeme = { selectedImgId: 1,
-     txts: [{ line: { top: 'top line', bottom: 'bottom line' }, size: 40, color: 'white' }] }
-var gLoctaion = [{
-    top: { locationY: 0.1, locationX: 0.1 },
-    bottom: { locationY: 0.9, locationX: 0.1 }
-}]
-// console.log(gMeme.txts[0].locationX,'gMeme.txts.locationXg')
-// console.log('suppose to write top line and got:',gMeme.txts[0].line.top)
-console.log('location y top suppose to print 0.99 ',gLoctaion[0].top.locationX)
-
-function onMoveTxtLeft(elBtn){
-    if(elBtn.classList[0] === 'top')gLoctaion[0].top.locationX -= 0.05 
+function onMoveTxtLeft(elBtn) {
+    if (elBtn.classList[0] === 'top') gLoctaion[0].top.locationX -= 0.05
     else gLoctaion[0].bottom.locationX -= 0.05
     onDrawText()
 }
-function onMoveTxtRight(elBtn){
-    console.log('elBtn',elBtn)
-    if(elBtn.classList[0] === 'top')gLoctaion[0].top.locationX += 0.05   
-    else gLoctaion[0].bottom.locationX += 0.05 
+function onMoveTxtRight(elBtn) {
+    console.log('elBtn', elBtn)
+    console.log('elBtn.classList[0]',elBtn.classList[0])
+    if (elBtn.classList[0] === 'top') gLoctaion[0].top.locationX += 0.05
+    else gLoctaion[0].bottom.locationX += 0.05
+    onDrawText()
+}
+function onMoveTxtUp(elBtn) {
+    if (elBtn.classList[0] === 'top') gLoctaion[0].top.locationY -= 0.05
+    else gLoctaion[0].bottom.locationY -= 0.05
+    onDrawText()
+}
+function onMoveTxtDown(elBtn) {
+    if (elBtn.classList[0] === 'top') gLoctaion[0].top.locationY += 0.05
+    else gLoctaion[0].bottom.locationY += 0.05
     onDrawText()
 }
 
@@ -133,51 +150,47 @@ function onIncreaseFontSize() {
 }
 
 function onClearText() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
 
 function onDownloadImg(elLink) {
     console.log('elLink', elLink)
-    var imgContent = canvas.toDataURL('image/jpeg');
+    var imgContent = gCanvas.toDataURL('imag/jpeg');
     elLink.href = imgContent
 }
 
-function onToggleLine(elInt){
-    console.log('elInt.value',elInt.value)
+function onToggleLine(elInt) {
     var elLine = document.querySelector('.' + elInt.value)
-    console.log('elLine',elLine)
-    
-    if (elLine.style.visibility  === 'visible') elLine.style.visibility  = 'hidden'
-    else elLine.style.visibility  = 'visible'
-    // elLine.forEach(function(el){el.style.display = 'block'})
-    // else elLine.style.display = 'none'
+    if (elLine.style.visibility === 'visible') elLine.style.visibility = 'hidden'
+    else elLine.style.visibility = 'visible'
+
+}
+
+function resizeCanvas() {
+    if (window.innerWidth < 700 && window.innerWidth > 600) {
+        gCanvas.width = window.innerWidth * 0.85
+        gCanvas.height = window.innerHeight * 0.75
+
+        var width = gCanvas.width
+        var height = gCanvas.height
+
+        drawImg(width, height)
+    }
+    else if (window.innerWidth <= 600) {
+        gCanvas.width = window.innerWidth * 0.85
+        gCanvas.height = window.innerHeight * 0.55
+
+        var width = gCanvas.width
+        var height = gCanvas.height
+
+        drawImg(width, height)
+    }
+
 }
 
 
+function drawImg(width, height) {
+    let img = document.querySelector('.img');
+    gCtx.drawImage(img, 0, 0, width, height)
 
-
-// function resizeCanvas() {
-//     var elContainer = document.querySelector('.share-container');
-//     // var elContainer = document.querySelector('body');
-//     canvas.width = elContainer.offsetWidth
-//     canvas.height = elContainer.offsetHeight
-//     }
-
-
-
-    // function KeyCheck(event)
-    // {
-
-    //    var KeyID = event.keyCode;
-    //    switch(KeyID)
-    //    {
-    //       case 8:
-    //       drawText()
-    //       break; 
-    //       case 46:
-    //       alert("delete");
-    //       break;
-    //       default:
-    //       break;
-    //    }
-    // }
+}

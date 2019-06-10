@@ -1,26 +1,47 @@
 'use strict'
-
-var canvas;
-var ctx;
-var gCurrFont = 'Arial'
-var gFontSize = 40;
-var gImg;
-var gLoctaionX = 0.1;
+var gCanvas;
+var gCtx;
+// var gImg;
+var gLoctaion = [{
+    top: { locationY: 0.1, locationX: 0.1 },
+    bottom: { locationY: 0.9, locationX: 0.1 }
+}]
+var gMeme = {
+    selectedImgId: 1,
+    txts: [{ top: '', bottom: '', color: 'white', fontSize: 40, fontType: 'Arial' }]
+}
 
 
 function handleImageFromInput(ev, onImageReady) {
-    document.querySelector('.share-container').innerHTML = ''
+    
+    document.querySelector('#myCanvas').innerHTML = ''
     var reader = new FileReader();
 
     reader.onload = function (event) {
         var img = new Image();
-        gImg = img
+        img = document.querySelector('.img')
+        // gImg = img
         img.onload = onImageReady.bind(null, img)
         img.src = event.target.result;
     }
     reader.readAsDataURL(ev.target.files[0]);
 
 }
+function setFont(font) {
+    // gCurrFont = font
+    gMeme.txts[0].fontType = font
+    console.log(' gMeme.txts[0].fontType', gMeme.txts[0].fontType)
+    console.log(gMeme)
+}
+function increaseFont() {
+    gMeme.txts[0].fontSize += 1
+}
+function decreaseFont() {
+    gMeme.txts[0].fontSize -= 1
+}
+
+
+
 
 // function doUploadImg(elForm, onSuccess) {
 //     var formData = new FormData(elForm);
@@ -37,17 +58,3 @@ function handleImageFromInput(ev, onImageReady) {
 //         console.error(error)
 //     })
 // }
-
-function setFont(font){
-    gCurrFont = font
-    console.log('font',gCurrFont)
-}
-
-function increaseFont(){
-    ++gFontSize
-}
-
-function decreaseFont(){
-    --gFontSize
-}
-

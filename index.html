@@ -6,73 +6,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
+
     <title>Meme Generator</title>
 </head>
 
 <body onload="init()">
-        <h1>Meme Generator</h1>
-        <div class="container flex justify-center align-center wrap">
+    <h1>Meme Generator</h1>
+
+    
+    <div class="container flex justify-center align-center wrap">
 
         <div>
+            
             <!-- Canvas -->
-            <input class="flex justify-center" type="file" name="image" onchange="onFileInputChange(event)" />
-            <canvas id="myCanvas" width="500" height="500" style="outline:1px solid black">
-                </div>
-                
-                <div class="editor ">
-                    
-                        <label><input onclick="onToggleLine(this)" type="checkbox" name="checkbox" value="top-line"><b>Top line</b></label>     
-                        <label><input onclick="onToggleLine(this)" type="checkbox" name="checkbox" value="bottom-line"><b>Bottom line</b></label>     
-                        <!-- <label><input type="checkbox" name="checkbox" value="bottom">Bottom line</label>     -->
-                        <br><br>
+            
+            <!-- <input class="flex justify-center" type="file" name="image" onchange="onFileInputChange(event)" /> -->
+           
+            <canvas id="myCanvas" width="400" height="400" style="outline:1px solid black">
+            </canvas>
+        </div>
+
+        <div class="editor ">
+                <div class="upload-btn-wrapper">
+                        <button class="btn">Upload a file</button>
+                        <input type="file" name="myfile" onchange="onFileInputChange(event)" />
+                      </div><br>
+
+            <label><input onclick="onToggleLine(this)" type="checkbox" name="checkbox" value="top-line"><b>Top
+                    line</b></label>
+            <label><input onclick="onToggleLine(this)" type="checkbox" name="checkbox" value="bottom-line"><b>Bottom
+                    line</b></label>
+            <!-- <label><input type="checkbox" name="checkbox" value="bottom">Bottom line</label>     -->
+            <br><br>
             <!-- Write txt -->
-        <div class="top-line"><b>Top line:</b><br><input class="top" onkeyup="onDrawText()" type="text" name="fname">
-            <button class="top" onclick="onMoveTxtLeft(this)"><--</button><button class="top" onclick="onMoveTxtRight(this)">--></button>
-        </div>
+
+            <div class="top-line"><b>Top line:</b><br><input class="top" onkeyup="onDrawText()" type="text"
+                    name="fname">
+                <button class="top" onclick="onMoveTxtLeft(this)">
+                    <--</button> <button class="top" onclick="onMoveTxtRight(this)">-->
+                </button>
+                <button class="top" onclick="onMoveTxtUp(this)">up</button>
+                <button class="top" onclick="onMoveTxtDown(this)">down</button>
+            </div>
             <br>
-           <div class="bottom-line"> <b>Bottom line:</b><br> <input class="bottom" onkeyup="onDrawText()" type="text" name="fname">
-            <button class="bottom" onclick="onMoveTxtLeft(this)"><--</button><button class="bottom" onclick="onMoveTxtRight(this)">--></button>
-        </div>
-            <br>
+            <div class="bottom-line"> <b>Bottom line:</b><br> <input class="bottom" onkeyup="onDrawText()" type="text"
+                    name="fname">
+                <button class="bottom" onclick="onMoveTxtLeft(this)">
+                    <--</button> <button class="bottom" onclick="onMoveTxtRight(this)">-->
+                </button>
+                <button class="bottom" onclick="onMoveTxtUp(this)">up</button>
+                <button class="bottom" onclick="onMoveTxtDown(this)">down</button>
+            </div>
             
+
+            <br>
+
             <!-- Color -->
-            <b>Color:</b><input onchange="onDrawText() " type="color" value="#ffffff" class="color" name="color"
-            form="frmRegister" /><br><br>
-            
-            <!-- txt font -->
-            <select onchange="onSetFont(this.value)">
-                    <option>Choose font</option>
-                    <option value="Arial">Arial</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Comic Sans MS">Comic Sans MS</option>
-                    <option value="Impact">Impact</option>
-                </select><br><br>
-                <!-- font size -->
-                <button onclick="onDecreaseFontSize()"><b>-</b></button><button onclick="onIncreaseFontSize()"><b>+</b></button>
-                <br><br>
-                <button onclick="onClearText()"><b>Clear Canvas</b></button><br><br><br>
-                <!-- <select onchange="onSetLang(this.value)"> -->
-                    
-                    
+            <div class="total-set">
+                <div class="prt-1">
+                    <b>Color:</b><input onchange="onDrawText() " type="color" value="#ffffff" class="color" name="color"
+                        form="frmRegister" /><br><br>
+
+                    <!-- txt font -->
+                    <select onchange="onSetFont(this.value)">
+                        <option>Choose font</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Comic Sans MS">Comic Sans MS</option>
+                        <option value="Impact">Impact</option>
+                    </select><br><br>
+                    <!-- font size -->
+                    <button class="btn-minus" onclick="onDecreaseFontSize()"><b>-</b></button><button class="btn-plus"
+                        onclick="onIncreaseFontSize()"><b>+</b></button>
+                    <br><br>
+                </div>
+                <div class="prt-2">
+                    <button class="btn-clear" onclick="onClearText()"><b>Clear Canvas</b></button><br><br>
+                
                     <img class="img" src="img/1.jpg" alt="">
                     <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-                        <input name="img" id="imgData" type="hidden"/>
-                        <button class="btn-fb"  type="submit"><b>Share via FaceBook</b></button>
+                        <input name="img" id="imgData" type="hidden" />
+                        <button class="btn-fb" type="submit"><b>Share via FaceBook</b></button>
                     </form>
-                    <a class="btn-download" href="#" onclick="onDownloadImg(this)" download="my-img.jpg" >
+                    <a class="btn-download" href="#" onclick="onDownloadImg(this)" download="my-img.jpg">
                         <b>Download</b>
                     </a>
-                
+                   
+                </div>
             </div>
-        </canvas>
-        
+
+        </div>
+
+
     </div>
-    
+
     <div class="share-container"></div>
-    
-    
-    
-    
+
+
+
+
 </body>
 <script src="js/util.js"></script>
 <script src="js/service.js"></script>
